@@ -1,17 +1,37 @@
 package com.hanzo.wviana.hanzotestapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ListView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity{
+
+    @Bind(R.id.user_list)
+    ListView userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+
+    }
+
+    @OnClick(R.id.button_add_user)
+    public void addNewUser() {
+        Intent intent = new Intent(this, UserFormActivity.class);
+        startActivity(intent);
     }
 
     @Override

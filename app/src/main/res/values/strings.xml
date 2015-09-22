@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="invalid_field_max_size">Campo deve ter menos que %1$d caracteres.</string>
+    <string name="invalid_field_min_size">Campo deve ter mais que %1$d caracteres.</string>
 </resources>

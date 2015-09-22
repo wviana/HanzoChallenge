@@ -101,11 +101,11 @@ public class UserFormActivity extends AppCompatActivity{
 
         if((!f.isMandatory() && formTextSize == 0)){
             return true;
-        } else if(formTextSize <= f.getMaxSize()){
-            formFild.setError(String.format("Campo deve ter menos que %d caracteres.", f.getMaxSize()));
+        } else if(formTextSize > f.getMaxSize()){
+            formFild.setError(String.format(getString(R.string.invalid_field_max_size), f.getMaxSize()));
             return false;
-        } else if(formTextSize >= f.getMinSize()){
-            formFild.setError(String.format("Campo deve ter mais que %d caracteres.", f.getMinSize()));
+        } else if(formTextSize < f.getMinSize()){
+            formFild.setError(String.format(getString(R.string.invalid_field_min_size), f.getMinSize()));
             return false;
         }
 

@@ -55,19 +55,9 @@ public class UserFormActivity extends AppCompatActivity{
     }
 
     private void inflateFields(List<Field> fields) {
-        for(Field f : fields){
-            View fildView = genField(f);
-            formFildList.addView(fildView);
-        }
-    }
-
-    private View genField(Field f){
         LayoutInflater inflater = getLayoutInflater();
-
-        if(f.getType().equals("string")){
-            return genTextField(inflater ,f);
-        } else if{
-            return genTextField(inflater, f);
+        for(Field f : fields){
+            formFildList.addView(f.getView(inflater, formFildList, this));
         }
     }
 

@@ -1,13 +1,16 @@
 
 package com.hanzo.wviana.hanzotestapp.model;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -271,9 +274,8 @@ public class Field {
         this.combo = combo;
     }
 
-    private View genTextField(LayoutInflater inflater, ViewGroup viewGroup) {
+    public View getView(LayoutInflater inflater, ViewGroup viewGroup, Context context) {
         if (mView == null) {
-            View rootView;
             switch (getType()) {
                 case "string":
                     EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
@@ -281,15 +283,19 @@ public class Field {
                     mView = textFildView;
                     break;
                 case "gender":
-
-                    RadioGroup radioFieldView = (()inflater.inflate(R.layout.gender_select, viewGroup, false));
+                    RadioGroup radioFieldView = (RadioGroup) inflater.inflate(R.layout.gender_select, viewGroup, false);
                     mView = radioFieldView;
                     break;
                 case "combo":
                     Spinner comboFieldView = (Spinner) inflater.inflate(R.layout.combo_field, viewGroup, false);
-
-
-
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, getCombo());
+                    comboFieldView.setAdapter(adapter);
+                    mView = comboFieldView;
+                    break;
+                default:
+                    TextView unknowFieldView = (TextView) inflater.inflate(R.layout.unknow_field, viewGroup, false);
+                    mView = unknowFieldView;
+                    break;
             }
         }
 

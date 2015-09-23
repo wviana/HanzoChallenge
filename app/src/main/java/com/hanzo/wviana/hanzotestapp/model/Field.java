@@ -1,10 +1,17 @@
 
 package com.hanzo.wviana.hanzotestapp.model;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hanzo.wviana.hanzotestapp.R;
 
 public class Field {
 
@@ -44,6 +51,7 @@ public class Field {
     @SerializedName("combo")
     @Expose
     private List<String> combo = new ArrayList<String>();
+    private View mView;
 
     /**
      * 
@@ -259,6 +267,27 @@ public class Field {
      */
     public void setCombo(List<String> combo) {
         this.combo = combo;
+    }
+
+    private View genTextField(LayoutInflater inflater, ViewGroup rootView) {
+        if (mView == null) {
+            switch (getType()) {
+                case "string":
+                    EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, rootView, false);
+                    textFildView.setHint(getName());
+                    mView = textFildView;
+                    break;
+                case "gender":
+                    RadioGroup radioFieldView = (RadioGroup) inflater.inflate(R.layout.gender_select, rootView, false);
+                    mView = radioFieldView;
+                    break;
+                case "combo":
+
+
+            }
+        }
+
+        return mView;
     }
 
 }

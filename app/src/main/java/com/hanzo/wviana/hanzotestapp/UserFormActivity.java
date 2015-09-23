@@ -66,7 +66,7 @@ public class UserFormActivity extends AppCompatActivity{
 
         if(f.getType().equals("string")){
             return genTextField(inflater ,f);
-        } else {
+        } else if{
             return genTextField(inflater, f);
         }
     }

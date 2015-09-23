@@ -78,20 +78,22 @@ public class UserFormActivity extends AppCompatActivity{
 
     @OnClick(R.id.user_form_save)
     public void saveUser(){
-        HashMap<String, String> userFieldsValues = new HashMap<>();
+        if (validate()) {
+            HashMap<String, String> userFieldsValues = new HashMap<>();
 
-        int formSize = formFildList.getChildCount();
-        for(int i = 0; i < formSize; i++) {
-            View viewFild = formFildList.getChildAt(i);
-            Field f = (Field) viewFild.getTag();
+            int formSize = formFildList.getChildCount();
+            for(int i = 0; i < formSize; i++) {
+                View viewFild = formFildList.getChildAt(i);
+                Field f = (Field) viewFild.getTag();
 
-            userFieldsValues.put(f.getJsonName(), getFieldValue(viewFild));
+                userFieldsValues.put(f.getJsonName(), getFieldValue(viewFild));
 
+            }
+            Intent intent = new Intent();
+            intent.putExtra(USER_DATA, userFieldsValues);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
-        Intent intent = new Intent();
-        intent.putExtra(USER_DATA, userFieldsValues);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
     }
 
     private String getFieldValue(View viewField){
@@ -141,59 +143,46 @@ public class UserFormActivity extends AppCompatActivity{
         }
     }
 
-//    private boolean validateField(View viewField){
-//        if (viewField instanceof EditText) {
-//
-//            ((EditText) viewField).setText(value);
-//        } else if (viewField instanceof Spinner) {
-//            Spinner comboField = ((Spinner) viewField);
-//            int itemsCount = comboField.getCount();
-//            for(int i = 0; i < itemsCount; i++){
-//                if(comboField.getItemAtPosition(i).toString().equals(value)){
-//                    comboField.setSelection(i);
-//                }
-//            }
-//        } else if (viewField instanceof RadioGroup) {
-//            RadioGroup genderField = ((RadioGroup) viewField);
-//            if(value.equals("male")){
-//                ((RadioButton) genderField.findViewById(R.id.radio_gender_male)).toggle();
-//            } else {
-//                ((RadioButton) genderField.findViewById(R.id.radio_gender_female)).toggle();
-//            }
-//        }
-//    }
+    private boolean validateField(View viewField){
+        Field field = (Field) viewField.getTag();
+        if (viewField instanceof EditText) {
+            EditText textField = ((EditText) viewField);
+            if(field.isMandatory()){
+                if(textField.getText().length() < field.getMinSize()){
+                    textField.setError(String.format(getString(R.string.invalid_field_min_size), field.getMinSize()));
+                    return false;
+                }
+                if(textField.getText().length() > field.getMaxSize()){
+                    textField.setError(String.format(getString(R.string.invalid_field_max_size), field.getMaxSize()));
+                    return false;
+                }
+            }
+        } else if (viewField instanceof Spinner) {
+            Spinner comboField = ((Spinner) viewField);
+            if(field.isMandatory() && comboField.getSelectedItem().toString().equals("")){
+                return false;
+            }
+        } else if (viewField instanceof RadioGroup) {
+            RadioGroup genderField = ((RadioGroup) viewField);
+            if(field.isMandatory() && !genderField.isSelected()){
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private boolean validate(){
         int formSize = formFildList.getChildCount();
 
         for(int i = 0; i < formSize; i++){
             View formFild = formFildList.getChildAt(i);
-            if(formFild instanceof EditText){
-                if(!validateEditTextFild((EditText) formFild)) {
-                    return false;
-                }
+            if(!validateField(formFild)){
+                return false;
             }
         }
 
         return true;
 
-    }
-
-    private boolean validateEditTextFild(EditText formFild) {
-        Field f = (Field) formFild.getTag();
-        String formText = formFild.getText().toString();
-        int formTextSize = formText.length();
-
-        if((!f.isMandatory() && formTextSize == 0)){
-            return true;
-        } else if(formTextSize > f.getMaxSize()){
-            formFild.setError(String.format(getString(R.string.invalid_field_max_size), f.getMaxSize()));
-            return false;
-        } else if(formTextSize < f.getMinSize()){
-            formFild.setError(String.format(getString(R.string.invalid_field_min_size), f.getMinSize()));
-            return false;
-        }
-
-        return true;
     }
 }

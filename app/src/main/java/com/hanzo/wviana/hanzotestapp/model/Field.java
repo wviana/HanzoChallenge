@@ -56,7 +56,7 @@ public class Field {
     @SerializedName("combo")
     @Expose
     private List<String> combo = new ArrayList<String>();
-    private View mView;
+//    private View mView;
 
     /**
      * 
@@ -275,28 +275,27 @@ public class Field {
     }
 
     public View getView(LayoutInflater inflater, ViewGroup viewGroup, Context context) {
-        if (mView == null) {
-            switch (getType()) {
-                case "string":
-                    EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
-                    textFildView.setHint(getName());
-                    mView = textFildView;
-                    break;
-                case "gender":
-                    RadioGroup radioFieldView = (RadioGroup) inflater.inflate(R.layout.gender_select, viewGroup, false);
-                    mView = radioFieldView;
-                    break;
-                case "combo":
-                    Spinner comboFieldView = (Spinner) inflater.inflate(R.layout.combo_field, viewGroup, false);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, getCombo());
-                    comboFieldView.setAdapter(adapter);
-                    mView = comboFieldView;
-                    break;
-                default:
-                    TextView unknowFieldView = (TextView) inflater.inflate(R.layout.unknow_field, viewGroup, false);
-                    mView = unknowFieldView;
-                    break;
-            }
+        View mView = null;
+        switch (getType()) {
+            case "string":
+                EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
+                textFildView.setHint(getName());
+                mView = textFildView;
+                break;
+            case "gender":
+                RadioGroup radioFieldView = (RadioGroup) inflater.inflate(R.layout.gender_select, viewGroup, false);
+                mView = radioFieldView;
+                break;
+            case "combo":
+                Spinner comboFieldView = (Spinner) inflater.inflate(R.layout.combo_field, viewGroup, false);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, getCombo());
+                comboFieldView.setAdapter(adapter);
+                mView = comboFieldView;
+                break;
+            default:
+                TextView unknowFieldView = (TextView) inflater.inflate(R.layout.unknow_field, viewGroup, false);
+                mView = unknowFieldView;
+                break;
         }
 
         return mView;

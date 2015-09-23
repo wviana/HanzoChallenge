@@ -298,6 +298,7 @@ public class Field {
                 break;
         }
 
+        mView.setTag(this);
         return mView;
     }
 

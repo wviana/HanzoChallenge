@@ -185,4 +185,10 @@ public class UserFormActivity extends AppCompatActivity{
         return true;
 
     }
+
+    @Override
+    public void onBackPressed() {
+        loadFieldsDataIfExists();
+        saveUser();
+    }
 }

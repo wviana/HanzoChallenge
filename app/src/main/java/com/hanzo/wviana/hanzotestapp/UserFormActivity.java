@@ -62,10 +62,6 @@ public class UserFormActivity extends AppCompatActivity{
 
             }
         });
-
-
-
-
     }
 
     private void loadFieldsDataIfExists() {
@@ -91,11 +87,11 @@ public class UserFormActivity extends AppCompatActivity{
 
             userFieldsValues.put(f.getJsonName(), getFieldValue(viewFild));
 
-            Intent intent = new Intent();
-            intent.putExtra(USER_DATA, userFieldsValues);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
         }
+        Intent intent = new Intent();
+        intent.putExtra(USER_DATA, userFieldsValues);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private String getFieldValue(View viewField){
@@ -129,9 +125,9 @@ public class UserFormActivity extends AppCompatActivity{
         } else if (viewField instanceof RadioGroup) {
             RadioGroup genderField = ((RadioGroup) viewField);
             if(value.equals("male")){
-                ((RadioButton)genderField.findViewById(R.id.radio_gender_male)).setSelected(true);
+                ((RadioButton) genderField.findViewById(R.id.radio_gender_male)).toggle();
             } else {
-                ((RadioButton) genderField.findViewById(R.id.radio_gender_female)).setSelected(true);
+                ((RadioButton) genderField.findViewById(R.id.radio_gender_female)).toggle();
             }
         }
     }

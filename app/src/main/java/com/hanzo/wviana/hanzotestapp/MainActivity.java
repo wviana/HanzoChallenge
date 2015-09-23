@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private List<String> getUserStringList(){
         ArrayList<String> firstFildValues = new ArrayList<>();
         for(HashMap<String, String> user : users){
-            firstFildValues.add(user.values().iterator().next());
+            firstFildValues.add(user.get("name"));
         }
         return firstFildValues;
     }

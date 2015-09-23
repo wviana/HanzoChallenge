@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -269,19 +271,23 @@ public class Field {
         this.combo = combo;
     }
 
-    private View genTextField(LayoutInflater inflater, ViewGroup rootView) {
+    private View genTextField(LayoutInflater inflater, ViewGroup viewGroup) {
         if (mView == null) {
+            View rootView;
             switch (getType()) {
                 case "string":
-                    EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, rootView, false);
+                    EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
                     textFildView.setHint(getName());
                     mView = textFildView;
                     break;
                 case "gender":
-                    RadioGroup radioFieldView = (RadioGroup) inflater.inflate(R.layout.gender_select, rootView, false);
+
+                    RadioGroup radioFieldView = (()inflater.inflate(R.layout.gender_select, viewGroup, false));
                     mView = radioFieldView;
                     break;
                 case "combo":
+                    Spinner comboFieldView = (Spinner) inflater.inflate(R.layout.combo_field, viewGroup, false);
+
 
 
             }

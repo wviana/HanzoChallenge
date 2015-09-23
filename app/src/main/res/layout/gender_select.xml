@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radio_gender_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
+
+    <RadioButton
+        android:id="@+id/radio_gender_male"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Sexo:"/>
+        android:layout_weight="1"
+        android:text="@string/male" />
 
-    <RadioGroup
-        android:id="@+id/radio_gender_group"
-        android:layout_width="match_parent"
+    <RadioButton
+        android:id="@+id/radio_gender_female"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:text="@string/female" />
 
-
-        <RadioButton
-            android:id="@+id/radio_gender_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/male" />
-
-        <RadioButton
-            android:id="@+id/radio_gender_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/female" />
-
-    </RadioGroup>
-
-</LinearLayout>
+</RadioGroup>

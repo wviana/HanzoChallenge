@@ -2,6 +2,7 @@
 package com.hanzo.wviana.hanzotestapp.model;
 
 import android.content.Context;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.hanzo.wviana.hanzotestapp.R;
@@ -280,6 +283,27 @@ public class Field {
             case "string":
                 EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
                 textFildView.setHint(getName());
+                switch (getValidation()){
+                    case "password":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                    case "email":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        break;
+                    case "name":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                        break;
+                    case "cpf":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+                        break;
+                    case "phone":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case "date":
+                        textFildView.setRawInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+                        break;
+                }
+
                 mView = textFildView;
                 break;
             case "gender":

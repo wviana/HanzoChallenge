@@ -141,12 +141,27 @@ public class UserFormActivity extends AppCompatActivity{
         }
     }
 
-    private View genTextField(LayoutInflater inflater, Field f) {
-        EditText fildView = (EditText) inflater.inflate(R.layout.text_field, formFildList, false);
-        fildView.setHint(f.getName());
-        fildView.setTag(f);
-        return fildView;
-    }
+//    private boolean validateField(View viewField){
+//        if (viewField instanceof EditText) {
+//
+//            ((EditText) viewField).setText(value);
+//        } else if (viewField instanceof Spinner) {
+//            Spinner comboField = ((Spinner) viewField);
+//            int itemsCount = comboField.getCount();
+//            for(int i = 0; i < itemsCount; i++){
+//                if(comboField.getItemAtPosition(i).toString().equals(value)){
+//                    comboField.setSelection(i);
+//                }
+//            }
+//        } else if (viewField instanceof RadioGroup) {
+//            RadioGroup genderField = ((RadioGroup) viewField);
+//            if(value.equals("male")){
+//                ((RadioButton) genderField.findViewById(R.id.radio_gender_male)).toggle();
+//            } else {
+//                ((RadioButton) genderField.findViewById(R.id.radio_gender_female)).toggle();
+//            }
+//        }
+//    }
 
     private boolean validate(){
         int formSize = formFildList.getChildCount();

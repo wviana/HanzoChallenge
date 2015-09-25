@@ -3,6 +3,7 @@ package com.hanzo.wviana.hanzotestapp.model;
 
 import android.content.Context;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -316,6 +317,7 @@ public class Field {
         switch (getValidation()){
             case "password":
                 textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                textFildView.setTransformationMethod(new PasswordTransformationMethod());
                 break;
             case "email":
                 textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);

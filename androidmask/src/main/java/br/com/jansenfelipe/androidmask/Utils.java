@@ -6,7 +6,8 @@ public abstract class Utils {
     public static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
-                .replaceAll("[)]", "").replaceAll("[ ]", "");
+                .replaceAll("[)]", "").replaceAll("[ ]", "")
+                .replaceAll("[,]", "");
     }
 
     public static String mask(String format, String text){

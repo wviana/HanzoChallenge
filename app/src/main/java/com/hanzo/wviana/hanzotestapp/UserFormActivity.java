@@ -156,6 +156,10 @@ public class UserFormActivity extends AppCompatActivity{
                     textField.setError(String.format(getString(R.string.invalid_field_max_size), field.getMaxSize()));
                     return false;
                 }
+                if(field.getValidation().equals("email") &&
+                        !textField.getText().toString().matches(".*\\@.*\\.*")){
+                    textField.setError(String.format(getString(R.string.invalid_field_email), field.getMaxSize()));
+                }
             }
         } else if (viewField instanceof Spinner) {
             Spinner comboField = ((Spinner) viewField);

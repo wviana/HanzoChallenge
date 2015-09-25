@@ -21,6 +21,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.hanzo.wviana.hanzotestapp.R;
 
+import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
+
+
 public class Field {
 
     @SerializedName("id")
@@ -283,27 +286,10 @@ public class Field {
             case "string":
                 EditText textFildView = (EditText) inflater.inflate(R.layout.text_field, viewGroup, false);
                 textFildView.setHint(getName());
-                switch (getValidation()){
-                    case "password":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        break;
-                    case "email":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                        break;
-                    case "name":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-                        break;
-                    case "cpf":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-                        break;
-                    case "phone":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_PHONE);
-                        break;
-                    case "date":
-                        textFildView.setRawInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
-                        break;
+                if (getMask() != null && !getMask().equals("")) {
+                    textFildView.addTextChangedListener(new MaskEditTextChangedListener(getMask(), textFildView));
                 }
-
+                setupValidation(textFildView);
                 mView = textFildView;
                 break;
             case "gender":
@@ -324,6 +310,29 @@ public class Field {
 
         mView.setTag(this);
         return mView;
+    }
+
+    private void setupValidation(EditText textFildView) {
+        switch (getValidation()){
+            case "password":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                break;
+            case "email":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                break;
+            case "name":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                break;
+            case "cpf":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+                break;
+            case "phone":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_PHONE);
+                break;
+            case "date":
+                textFildView.setRawInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+                break;
+        }
     }
 
 }

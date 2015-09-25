@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HanzoTestApp.iml" filepath="$PROJECT_DIR$/HanzoTestApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidmask/androidmask.iml" filepath="$PROJECT_DIR$/androidmask/androidmask.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

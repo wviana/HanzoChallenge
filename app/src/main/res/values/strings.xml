@@ -6,6 +6,8 @@
     <string name="invalid_field_max_size">Campo deve ter menos que %1$d caracteres.</string>
     <string name="invalid_field_min_size">Campo deve ter mais que %1$d caracteres.</string>
     <string name="invalid_field_email">E-Mail não é válido.</string>
+    <string name="invalid_field_cpf">CPF não é válido.</string>
+    <string name="invalid_field_date">Data invalida.</string>
     <string name="male">Masculino</string>
     <string name="female">Femenino</string>
 

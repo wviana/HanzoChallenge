@@ -147,18 +147,29 @@ public class UserFormActivity extends AppCompatActivity{
         Field field = (Field) viewField.getTag();
         if (viewField instanceof EditText) {
             EditText textField = ((EditText) viewField);
+            String value = textField.getText().toString();
             if(field.isMandatory()){
-                if(textField.getText().length() < field.getMinSize()){
+                if(value.length() < field.getMinSize()){
                     textField.setError(String.format(getString(R.string.invalid_field_min_size), field.getMinSize()));
                     return false;
                 }
-                if(textField.getText().length() > field.getMaxSize()){
+                if(value.length() > field.getMaxSize()){
                     textField.setError(String.format(getString(R.string.invalid_field_max_size), field.getMaxSize()));
                     return false;
                 }
                 if(field.getValidation().equals("email") &&
-                        !textField.getText().toString().matches(".*\\@.*\\.*")){
-                    textField.setError(String.format(getString(R.string.invalid_field_email), field.getMaxSize()));
+                        !value.matches(".*\\@.*\\.*")){
+                    textField.setError(getString(R.string.invalid_field_email));
+                    return false;
+                }
+                if(field.getValidation().equals("cpf") &&
+                        !calcDigVerif(clearCPF(value).substring(0,9)).equals(clearCPF(value).substring(9, 11))){
+                    textField.setError(getString(R.string.invalid_field_cpf));
+                    return false;
+                }
+                if(field.getValidation().equals("date") && !value.matches("[0-9][0-9]\\/[1-2][0-9]\\/[1-9][0-9][0-9][0-9]")){
+                    textField.setError(getString(R.string.invalid_field_date));
+                    return false;
                 }
             }
         } else if (viewField instanceof Spinner) {
@@ -178,15 +189,15 @@ public class UserFormActivity extends AppCompatActivity{
 
     private boolean validate(){
         int formSize = formFildList.getChildCount();
-
+        boolean isValid = true;
         for(int i = 0; i < formSize; i++){
             View formFild = formFildList.getChildAt(i);
             if(!validateField(formFild)){
-                return false;
+                isValid = false;
             }
         }
 
-        return true;
+        return isValid;
 
     }
 
@@ -194,5 +205,36 @@ public class UserFormActivity extends AppCompatActivity{
     public void onBackPressed() {
         loadFieldsDataIfExists();
         saveUser();
+    }
+
+    private static String clearCPF(String cpf){
+        return cpf.replaceAll("[.-]", "");
+    }
+
+    private static String calcDigVerif(String cpf) {
+
+        String num = clearCPF(cpf);
+        int firstValidationDig, secondValidationDig;
+        int sum = 0, weigt = 10;
+        for (int i = 0; i < num.length(); i++)
+            sum += Integer.parseInt(num.substring(i, i + 1)) * weigt--;
+
+        if (sum % 11 == 0 | sum % 11 == 1)
+            firstValidationDig = new Integer(0);
+        else
+            firstValidationDig = new Integer(11 - (sum % 11));
+
+        sum = 0;
+        weigt = 11;
+        for (int i = 0; i < num.length(); i++)
+            sum += Integer.parseInt(num.substring(i, i + 1)) * weigt--;
+
+        sum += firstValidationDig * 2;
+        if (sum % 11 == 0 | sum % 11 == 1)
+            secondValidationDig = 0;
+        else
+            secondValidationDig = (11 - (sum % 11));
+
+        return "" + firstValidationDig + secondValidationDig;
     }
 }

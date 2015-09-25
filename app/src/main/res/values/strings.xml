@@ -8,6 +8,7 @@
     <string name="invalid_field_email">E-Mail não é válido.</string>
     <string name="invalid_field_cpf">CPF não é válido.</string>
     <string name="invalid_field_date">Data invalida.</string>
+    <string name="invalid_field_blank">Campo é obrigatório.</string>
     <string name="male">Masculino</string>
     <string name="female">Femenino</string>
 

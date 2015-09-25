@@ -148,29 +148,31 @@ public class UserFormActivity extends AppCompatActivity{
         if (viewField instanceof EditText) {
             EditText textField = ((EditText) viewField);
             String value = textField.getText().toString();
-            if(field.isMandatory()){
-                if(value.length() < field.getMinSize()){
-                    textField.setError(String.format(getString(R.string.invalid_field_min_size), field.getMinSize()));
-                    return false;
-                }
-                if(value.length() > field.getMaxSize()){
-                    textField.setError(String.format(getString(R.string.invalid_field_max_size), field.getMaxSize()));
-                    return false;
-                }
-                if(field.getValidation().equals("email") &&
-                        !value.matches(".*\\@.*\\.*")){
-                    textField.setError(getString(R.string.invalid_field_email));
-                    return false;
-                }
-                if(field.getValidation().equals("cpf") &&
-                        !calcDigVerif(clearCPF(value).substring(0,9)).equals(clearCPF(value).substring(9, 11))){
-                    textField.setError(getString(R.string.invalid_field_cpf));
-                    return false;
-                }
-                if(field.getValidation().equals("date") && !value.matches("[0-9][0-9]\\/[1-2][0-9]\\/[1-9][0-9][0-9][0-9]")){
-                    textField.setError(getString(R.string.invalid_field_date));
-                    return false;
-                }
+            if(field.isMandatory() && value.equals("")){
+                textField.setError(getString(R.string.invalid_field_blank));
+                return false;
+            }
+            if(value.length() < field.getMinSize()){
+                textField.setError(String.format(getString(R.string.invalid_field_min_size), field.getMinSize()));
+                return false;
+            }
+            if(value.length() > field.getMaxSize()){
+                textField.setError(String.format(getString(R.string.invalid_field_max_size), field.getMaxSize()));
+                return false;
+            }
+            if(field.getValidation().equals("email") &&
+                    !value.matches(".*\\@.*\\.*")){
+                textField.setError(getString(R.string.invalid_field_email));
+                return false;
+            }
+            if(field.getValidation().equals("cpf") &&
+                    !calcDigVerif(clearCPF(value).substring(0,9)).equals(clearCPF(value).substring(9, 11))){
+                textField.setError(getString(R.string.invalid_field_cpf));
+                return false;
+            }
+            if(field.getValidation().equals("date") && !value.matches("[0-9][0-9]\\/[1-2][0-9]\\/[1-9][0-9][0-9][0-9]")){
+                textField.setError(getString(R.string.invalid_field_date));
+                return false;
             }
         } else if (viewField instanceof Spinner) {
             Spinner comboField = ((Spinner) viewField);
